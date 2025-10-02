@@ -1,6 +1,7 @@
 #include "array.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <pthread.h>
 
 typedef struct {
@@ -10,10 +11,15 @@ typedef struct {
 
 void* thread(void* args) {
 	p_args *args2 = (p_args *)args;
-
+	int randval = rand() % (8 + 1);
+	int randval2 = rand() % (8 + 1);
 	char* tmp;
+
+	sleep(randval);
 	printf("PUT [%s]\n", args2->hostname);
 	array_put(args2->s, args2->hostname);
+
+	sleep(randval2);
 	array_get(args2->s, &tmp);
 	printf("GET [%s]\n", tmp);
 }
