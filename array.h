@@ -8,6 +8,7 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
+#include <stdlib.h>
 #include <pthread.h>
 
 #ifdef ARRAY_IMPORT
@@ -19,7 +20,13 @@
 #define ARRAY_SIZE 8
 #define MAX_NAME_LENGTH 253 /*<-Change Possibly*/
 
-typedef struct array array;
+//typedef struct array array;
+
+typedef struct {
+    char *array[ARRAY_SIZE];
+    int front;
+    int size;
+} array;
 
 EXTERN int  array_init(array *s);                   // initialize the array
 EXTERN int  array_put (array *s, char *hostname);   // place element into the array, block when full
