@@ -1,6 +1,6 @@
 /*
 * Shared array module implementation
-* @license GPL3
+* @license GPLv3
 * @author Julian Franko
 * @version 10-5-2025
 */
@@ -9,7 +9,7 @@
 #define ARRAY_H
 
 #include <stdlib.h>
-#include <pthread.h>
+#include <semaphore.h>
 
 #ifdef ARRAY_IMPORT
     #define EXTERN
@@ -20,12 +20,14 @@
 #define ARRAY_SIZE 8
 #define MAX_NAME_LENGTH 253 /*<-Change Possibly*/
 
-//typedef struct array array;
-
 typedef struct {
     char *array[ARRAY_SIZE];
     int front;
     int size;
+
+    sem_t mutex;
+    sem_t space_avail;
+    sem_t items_avail;
 } array;
 
 EXTERN int  array_init(array *s);                   // initialize the array

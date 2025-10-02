@@ -1,35 +1,58 @@
 #include "array.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
+
+typedef struct {
+	char* hostname;
+	array* s;
+} p_args;
+
+void* thread(void* args) {
+	p_args *args2 = (p_args *)args;
+
+	char* tmp;
+	printf("PUT [%s]\n", args2->hostname);
+	array_put(args2->s, args2->hostname);
+	array_get(args2->s, &tmp);
+	printf("GET [%s]\n", tmp);
+}
 
 int main() {
-    printf("SHARED ARRAY\n");
-    array s;
+    printf("===SHARED ARRAY TEST===\n");
 
+    void* hostnames[10] = {
+	    "www.google.com",
+	    "www.test.com",
+	    "www.bing.com",
+	    "www.computers.com",
+	    "www.pthreads.com",
+	    "www.posix.com",
+	    "www.linux.com",
+	    "www.books.com",
+	    "www.cprogramming.com",
+	    "www.kernel.org",
+    };
+
+    array s;
     array_init(&s);
-    char* hostname1 = "www.oalgo.com";
-    char* hostname2 = "www.google.com";
-    char* hostname3 = "www.parenthesis.com";
-    char* hostname4 = "www.cprogramming.com";
-    array_put(&s, hostname1);
-    char* hostname7;
-    char* hostname8;
-    char* hostname9;
-    char* hostname10;
-    char* hostname11;
-    array_get(&s, &hostname7);
-    printf("HOSTNAME: %s\n", hostname7);
-    array_put(&s, hostname2);
-    array_put(&s, hostname3);
-    array_put(&s, hostname4);
-    array_get(&s, &hostname8);
-    printf("HOSTNAME: %s\n", hostname8);
-    array_get(&s, &hostname9);
-    printf("HOSTNAME: %s\n", hostname9);
-    array_get(&s, &hostname10);
-    printf("HOSTNAME: %s\n", hostname10);
-    array_get(&s, &hostname11);
-    printf("HOSTNAME: %s\n", hostname11);
+
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+
+    pthread_t tid[10];
+    p_args args[10];
+
+    for (int i = 0; i < 10; i++){
+	    args[i].hostname = hostnames[i];
+	    args[i].s = &s;
+	    pthread_create(&tid[i], &attr, &thread, &args[i]);
+    }
+
+    for (int i = 0; i < 10; i++) {
+    	    pthread_join(tid[i], NULL);
+    }
+
     array_free(&s);
     return 0;
 }
