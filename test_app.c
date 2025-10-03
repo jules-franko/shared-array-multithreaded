@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <pthread.h>
 
-typedef struct {
+typedef struct p_args {
 	char* hostname;
 	array* s;
 } p_args;

@@ -20,7 +20,7 @@
 #define ARRAY_SIZE 8
 #define MAX_NAME_LENGTH 253 /*<-Change Possibly*/
 
-typedef struct {
+typedef struct array {
     char *array[ARRAY_SIZE];
     int front;
     int size;
