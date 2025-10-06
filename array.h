@@ -10,6 +10,8 @@
 
 #include <stdlib.h>
 #include <semaphore.h>
+#include <string.h>
+//#include <stdio.h>
 
 #ifdef ARRAY_IMPORT
     #define EXTERN
