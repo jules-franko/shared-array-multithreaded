@@ -22,61 +22,61 @@ void* hostnames[12] = {
 void* thread(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[0]);
-    printf("PUT [%s]\n", hostnames[0]);
+    printf("PUT [%p]\n", hostnames[0]);
 }
 
 void* thread2(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[1]);
-    printf("PUT [%s]\n", hostnames[1]);
+    printf("PUT [%p]\n", hostnames[1]);
 }
 
 void* thread3(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[2]);
-    printf("PUT [%s]\n", hostnames[2]);
+    printf("PUT [%p]\n", hostnames[2]);
 }
 
 void* thread4(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[3]);
-    printf("PUT [%s]\n", hostnames[3]);
+    printf("PUT [%p]\n", hostnames[3]);
 }
 
 void* thread5(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[4]);
-    printf("PUT [%s]\n", hostnames[4]);
+    printf("PUT [%p]\n", hostnames[4]);
 }
 
 void* thread6(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[5]);
-    printf("PUT [%s]\n", hostnames[5]);
+    printf("PUT [%p]\n", hostnames[5]);
 }
 
 void* thread7(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[6]);
-    printf("PUT [%s]\n", hostnames[6]);
+    printf("PUT [%p]\n", hostnames[6]);
 }
 
 void* thread8(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[7]);
-    printf("PUT [%s]\n", hostnames[7]);
+    printf("PUT [%p]\n", hostnames[7]);
 }
 
 void* thread9(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[8]);
-    printf("PUT [%s]\n", hostnames[8]);
+    printf("PUT [%p]\n", hostnames[8]);
 }
 
 void* thread10(void* args) {
 	char* hostname = "www.google.com";
 	array_put(args, hostnames[9]);
-    printf("PUT [%s]\n", hostnames[9]);
+    printf("PUT [%p]\n", hostnames[9]);
 }
 
 void* thread_get(void* args) {
