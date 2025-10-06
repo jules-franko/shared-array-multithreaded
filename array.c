@@ -28,10 +28,10 @@ int array_put(array *s, char *hostname) {
         free(s->array[put]);
     }
 
-    //Check if string is too long, it so, replace the hostname
+    //Check if string is too long, it so, terminate with error
     if (strlen(hostname) > MAX_NAME_LENGTH) {
-        printf("ERROR: HOSTNAME TOO LONG: %ld\n", strlen(hostname));
-        hostname = "127.0.0.1";
+        array_free(s);
+        return -1;
     }
 
     char* alloc_hostname = malloc(strlen(hostname));
