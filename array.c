@@ -30,7 +30,7 @@ int array_put(array *s, char *hostname) {
 
     //Check if string is too long, it so, replace the hostname
     if (strlen(hostname) > MAX_NAME_LENGTH) {
-        printf("ERROR HOSTNAME TOO LONG: %d\n", strlen(hostname));
+        printf("ERROR: HOSTNAME TOO LONG: %d\n", strlen(hostname));
         hostname = "127.0.0.1";
     }
 
