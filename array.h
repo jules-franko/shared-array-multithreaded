@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <semaphore.h>
 #include <string.h>
-//#include <stdio.h>
+#include <stdio.h>
 
 #ifdef ARRAY_IMPORT
     #define EXTERN
@@ -20,7 +20,7 @@
 #endif
 
 #define ARRAY_SIZE 8
-#define MAX_NAME_LENGTH 253 /*<-Change Possibly*/
+#define MAX_NAME_LENGTH 253 /*Biggest possible hostname*/
 
 typedef struct array {
     char *array[ARRAY_SIZE];

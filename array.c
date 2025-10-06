@@ -20,22 +20,27 @@ int array_put(array *s, char *hostname) {
     sem_wait(&s->space_avail);
 
     sem_wait(&s->mutex);
-    /*Critical Section*/
+    /*Begin Critical Section*/
     int put = (s->front+s->size) % ARRAY_SIZE;
 
     //If there is already an item here, free it before allocating another chunk
     if (s->array[put] != NULL) {
         free(s->array[put]);
-        //printf("There was already an item here! Freeing array[%d]\n", put);
     }
 
-    char* alloc_hostname = malloc(sizeof(hostname));
+    //Check if string is too long, it so, replace the hostname
+    if (strlen(hostname) > MAX_NAME_LENGTH) {
+        printf("ERROR HOSTNAME TOO LONG: %d\n", strlen(hostname));
+        hostname = "127.0.0.1";
+    }
+
+    char* alloc_hostname = malloc(strlen(hostname));
     strcpy(alloc_hostname, hostname);
     
     s->array[put] = alloc_hostname;
 
     s->size++;
-    /*Critical Section*/
+    /*End Critical Section*/
     sem_post(&s->mutex);
 
     sem_post(&s->items_avail);
@@ -46,14 +51,14 @@ int array_get(array *s, char **hostname) {
     sem_wait(&s->items_avail);
 
     sem_wait(&s->mutex);
-    /*Critical Section*/
+    /*Begin Critical Section*/
 
     *hostname = s->array[s->front];
 
     s->front = (s->front+1)%ARRAY_SIZE;
 
     s->size--;
-    /*Critical Section*/
+    /*End Critical Section*/
     sem_post(&s->mutex);
 
     sem_post(&s->space_avail);
@@ -66,7 +71,6 @@ void array_free(array *s) {
     for (int i = 0; i < ARRAY_SIZE; i++) {
         if (s->array[i] != NULL) {
             free(s->array[i]);
-            //printf("Freed array[%d]\n", i);
         }
     }
 
